@@ -3,8 +3,8 @@ import { createStore , applyMiddleware,combineReducers } from "redux";
 import { Provider } from "react-redux"
 import  thunk  from "redux-thunk"
 import comReducer from "./reducer/index"
-import  Qibinglian  from "./pages/Qibinglian"
 import  { BrowserRouter ,Route} from "react-router-dom"
+import "./config"
 
 
 var store = createStore(combineReducers(comReducer),applyMiddleware(thunk))
@@ -17,7 +17,7 @@ class App  extends React.Component{
     return<Provider store={store}>
           <BrowserRouter >
               <div>
-                <Route exact path="/" component={Qibinglian}></Route>
+                <h2>2222</h2>
               </div>
           </BrowserRouter>
       </Provider>

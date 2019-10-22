@@ -1,6 +1,6 @@
 import counter from "./counter"
-import team  from "./team"
 
-const comReducer = { counter , team}
+
+const comReducer = { counter }
 
 export default comReducer
