@@ -1,3 +1,9 @@
 .my-list .am-list-item{
     border-bottom: 1px solid #ddd;
 }
+
+.error-msg{
+    color:#f50;
+    padding-left:10px;
+    padding-top:10px;
+}
