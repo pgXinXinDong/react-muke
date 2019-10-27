@@ -1,0 +1,88 @@
+import  axios from "axios"
+import { getRedirectPath }from "../util"
+const REGISTER_SUCCESS = 'REGISTER_SUCCESS'
+const LOGIN_SUCESS = 'LOGIN_SUCESS'
+const ERROR_MSG = 'ERROR_MSG'
+const LOAD_DATA = 'LOAD_DATA'
+
+const initData = {
+    redirectTo:"",
+    user:"",
+    pwd:"",
+    repeatpwd:"",
+    type:"",
+    msg:""
+}
+
+
+export function user(state = initData, action){
+    switch (action.type){
+        case LOGIN_SUCESS :
+            return {...initData,...action.payload,redirectTo:getRedirectPath({...action.payload})}
+        case REGISTER_SUCCESS:
+            return {...initData,...action.payload,redirectTo:getRedirectPath({...action.payload})}
+        case ERROR_MSG :
+                return {...initData,msg:action.data}
+        case LOAD_DATA:return  { ...initData,...action.payload}
+        default:
+            return initData
+    }
+}
+
+
+export function logoData(data) {
+    return { type:LOAD_DATA, payload:data}
+}
+
+function errorMsg(data){
+    console.log("errorMsg",data)
+    return { type:ERROR_MSG,data}
+}
+function registerSuccess(data) {
+    return {type:REGISTER_SUCCESS,payload:data}
+}
+function loginSuccess(data){
+    return {type:LOGIN_SUCESS,payload:data}
+}
+
+export  function login({user,pwd}) {
+    console.log("user",user,"pwd",pwd)
+    if(!user||!pwd){
+        return errorMsg("用户名或密码有误")
+    }
+
+    return dispatch =>{
+        axios.post("/user/login",{user,pwd}).then(res=>{
+            if(res.status == 200 && res.data.code == 0){
+                dispatch(loginSuccess(res.data.data));
+            }else{
+                dispatch(errorMsg(res.data.msg))
+            }
+
+        })
+    }
+
+}
+
+export function register({user,pwd,repeatpwd,type}){
+    if(!user || !pwd || !type) {
+         return errorMsg("用户名密码必须输入")
+    }
+    if(pwd !== repeatpwd){
+        return errorMsg("密码不一致")
+    }
+
+    return dispatch =>{
+        axios.post("/user/register",{user,pwd,type}).then(res=>{
+            //用户名已存在
+            if(res.status == 200 && res.data.code == 0){
+                dispatch(registerSuccess({user,pwd,type}))
+            }else{
+                dispatch(errorMsg(res.data.msg))
+            }
+
+        })
+    }
+    //申请通过后传输后台
+
+}
