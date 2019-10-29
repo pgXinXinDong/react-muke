@@ -10,7 +10,7 @@ import { logoData } from "../../redux/user.rudex";
 @connect(null,{ logoData })
 class AuthRouter extends React.Component{
     componentDidMount(){
-        let publicList = ["login","register"];
+        let publicList = ["/login","/register"];
         let pathName = this.props.location.pathname
         if(publicList.indexOf(pathName) > -1){
             return null

@@ -2,14 +2,17 @@ import  React from "react"
 import Logo from "../../component/logo/logo"
 import {Button ,WhiteSpace, WingBlank, List, InputItem} from "antd-mobile"
 import {Redirect} from "react-router-dom"
-import { login } from "../../redux/user.rudex"
+import { login ,switchToPage} from "../../redux/user.rudex"
 import { connect } from "react-redux"
 
-@connect(state=>state.user,{login})
+@connect(state=>state.user,{login,switchToPage})
 class Login extends React.Component{
     state={
         user:"",
         pwd:""
+    }
+    componentDidMount(){
+        this.props.switchToPage()
     }
     rigeister = ()=>{
         this.props.history.push("/register")

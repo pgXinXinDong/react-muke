@@ -3,18 +3,19 @@ import {WingBlank, Button, List, InputItem, WhiteSpace, Radio} from "antd-mobile
 import { Redirect } from "react-router-dom"
 import Logo from "../../component/logo/logo";
 import { connect } from "react-redux"
-import {register} from "../../redux/user.rudex"
-@connect(state=>state.user,{register})
+import {register,switchToPage} from "../../redux/user.rudex"
+@connect(state=>state.user,{register,switchToPage})
 class Register extends React.Component {
-    constructor() {
-        super()
-        this.state = {
+    state = {
             user:'',
             pwd:'',
             repeatpwd:'',
             type:'genius' // 或者boss
         }
+    componentDidMount(){
+        this.props.switchToPage()
     }
+
     handleChange(key,v){
         this.setState({
             [key]:v

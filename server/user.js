@@ -3,24 +3,43 @@ const Router = express.Router()
 const utils = require('utility')
 const model = require('./model')
 const User = model.getModel("user")
-
-
+const _filter ={ "pwd":0,"__id":0}
+const cookieConfig = { expires: new Date(Date.now() + 900000), httpOnly: true }
 Router.get("/info",function (req,res) {
-    res.send({
-        code:1,
-        msg:"请登录"
+    const { userId } = req.cookies;
+    if(!userId){
+        res.send({
+            code:1,
+            msg:"请先登录"
+        })
+    }
+    // 通过userId 查询数据库
+    User.findOne({_id:userId},_filter,function (err,doc) {
+        if(!doc){
+            res.send({
+                code:1,
+                msg:"后台有错"
+            })
+        }
+        if(doc){
+            res.send({
+                code:0,
+                data:doc
+            })
+        }
     })
+
 })
 Router.post("/login",(req,res,next)=>{
     let {user,pwd} = req.body;
-    User.findOne({user},function(err,doc){
-        console.log("doc",doc)
+    User.findOne({user,pwd:md5Pwd(pwd)},_filter ,function(err,doc){
         if(!doc){
             res.send({
                 code:1,
                 msg:"用户不存在"
             })
         }else {
+            res.cookie("userId",doc._id,cookieConfig);
             res.send({
                 code:0,
                 data:doc
@@ -35,22 +54,24 @@ Router.post("/register",(req,res,next)=>{
     User.findOne({user},function (err,doc) {
         //err ???  doc:表  无:null 有:对应的数据
         if(doc){
-            res.json({
+            return res.send({
                 code:1,
                 msg:"用户名已存在"
             })
         }
         //md5 对数据库密码加密
+
         const userModel = new User({user,pwd:md5Pwd(pwd),type});
         userModel.save(function(err,doc){
             if(err){
-                res.send({
+              return  res.send({
                     code:1,
                     msg:"后端出错了"
                 })
             }
             const { user,type,_id } = doc
-            res.json({
+            res.cookie("userId",_id,cookieConfig)
+            return res.json({
                 code:0,
                 data:{user,type,_id}
             })

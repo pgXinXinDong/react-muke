@@ -4,6 +4,7 @@ const REGISTER_SUCCESS = 'REGISTER_SUCCESS'
 const LOGIN_SUCESS = 'LOGIN_SUCESS'
 const ERROR_MSG = 'ERROR_MSG'
 const LOAD_DATA = 'LOAD_DATA'
+const SWITCH_PAGE = "SWITCH_PAGE"
 
 const initData = {
     redirectTo:"",
@@ -18,12 +19,13 @@ const initData = {
 export function user(state = initData, action){
     switch (action.type){
         case LOGIN_SUCESS :
-            return {...initData,...action.payload,redirectTo:getRedirectPath({...action.payload})}
+            return {...initData,msg:"",...action.payload,redirectTo:getRedirectPath({...action.payload})}
         case REGISTER_SUCCESS:
-            return {...initData,...action.payload,redirectTo:getRedirectPath({...action.payload})}
+            return {...initData,msg:"",...action.payload,redirectTo:getRedirectPath({...action.payload})}
         case ERROR_MSG :
                 return {...initData,msg:action.data}
         case LOAD_DATA:return  { ...initData,...action.payload}
+        case SWITCH_PAGE: return {...initData,msg:action.data}
         default:
             return initData
     }
@@ -35,7 +37,6 @@ export function logoData(data) {
 }
 
 function errorMsg(data){
-    console.log("errorMsg",data)
     return { type:ERROR_MSG,data}
 }
 function registerSuccess(data) {
@@ -44,9 +45,11 @@ function registerSuccess(data) {
 function loginSuccess(data){
     return {type:LOGIN_SUCESS,payload:data}
 }
+export  function switchToPage() {
+    return {type:SWITCH_PAGE,data:""}
+}
 
 export  function login({user,pwd}) {
-    console.log("user",user,"pwd",pwd)
     if(!user||!pwd){
         return errorMsg("用户名或密码有误")
     }
@@ -83,6 +86,6 @@ export function register({user,pwd,repeatpwd,type}){
 
         })
     }
-    //申请通过后传输后台
+
 
 }
