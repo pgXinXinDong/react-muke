@@ -4,11 +4,12 @@ const utils = require('utility')
 const model = require('./model')
 const User = model.getModel("user")
 const _filter ={ "pwd":0,"__id":0}
-const cookieConfig = { expires: new Date(Date.now() + 900000), httpOnly: true }
+const cookieConfig = { expires: new Date(Date.now() + 9000000), httpOnly: true }
 Router.get("/info",function (req,res) {
     const { userId } = req.cookies;
+    console.log("userId",userId)
     if(!userId){
-        res.send({
+       return res.send({
             code:1,
             msg:"请先登录"
         })
@@ -16,13 +17,13 @@ Router.get("/info",function (req,res) {
     // 通过userId 查询数据库
     User.findOne({_id:userId},_filter,function (err,doc) {
         if(!doc){
-            res.send({
+         return   res.send({
                 code:1,
                 msg:"后台有错"
             })
         }
         if(doc){
-            res.send({
+           return res.send({
                 code:0,
                 data:doc
             })
@@ -34,13 +35,13 @@ Router.post("/login",(req,res,next)=>{
     let {user,pwd} = req.body;
     User.findOne({user,pwd:md5Pwd(pwd)},_filter ,function(err,doc){
         if(!doc){
-            res.send({
+            return  res.send({
                 code:1,
                 msg:"用户不存在"
             })
         }else {
             res.cookie("userId",doc._id,cookieConfig);
-            res.send({
+          return  res.send({
                 code:0,
                 data:doc
             })
