@@ -81,6 +81,20 @@ Router.post("/register",(req,res,next)=>{
 
     })
 })
+Router.post("/update",(req,res,next)=>{
+
+    const userId = req.cookies.userId;
+    const updata = req.body
+    User.findByIdAndUpdate(userId,updata,{ "pwd":0,"__id":0},(err,doc)=>{
+        console.log("doc",doc)
+        if(doc){
+            return res.send({
+                code:0,
+
+            })
+        }
+    })
+})
 function md5Pwd(pwd){
 //    加严
     var salt ='imooc_is_good_3957x8yza6!@#IUHJh~~'

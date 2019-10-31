@@ -6,13 +6,15 @@ const ERROR_MSG = 'ERROR_MSG'
 const LOAD_DATA = 'LOAD_DATA'
 const SWITCH_PAGE = "SWITCH_PAGE"
 
+
 const initData = {
     redirectTo:"",
     user:"",
     pwd:"",
     repeatpwd:"",
     type:"",
-    msg:""
+    msg:"",
+    avatar:""
 }
 
 
@@ -47,6 +49,19 @@ function loginSuccess(data){
 }
 export  function switchToPage() {
     return {type:SWITCH_PAGE,data:""}
+}
+
+export function update(data) {
+
+        if(data.title == "" || data.avatar == "" || data.desc == "" || typeof data.avatar == "undefined") {
+            return errorMsg("请完善信息")
+        }
+
+        return dispatch =>{
+            axios.post("/user/update",data).then(res=>{
+
+        })}
+
 }
 
 export  function login({user,pwd}) {
