@@ -82,10 +82,14 @@ Router.post("/register",(req,res,next)=>{
     })
 })
 Router.post("/update",(req,res,next)=>{
-
     const userId = req.cookies.userId;
     const updata = req.body
     User.findByIdAndUpdate(userId,updata,{"fields":{"pwd":0,"__v":0,"_id":0},"new":true},(err,doc)=>{
+        console.log("err",err)
+        console.log("doc",doc)
+        User.find({},function(err,doc){
+            console.log("findone",doc)
+        })
         if(doc){
             return res.send({
                 code:0,

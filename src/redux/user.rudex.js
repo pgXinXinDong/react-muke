@@ -52,7 +52,7 @@ export  function switchToPage() {
 }
 
 export function update(data) {
-        if(data.title == "" || data.avatar == "" || data.desc == "" || typeof data.avatar == "undefined") {
+        if(data.title == "" || data.avatar == ""|| typeof data.avatar == "undefined") {
             return errorMsg("请完善信息")
         }
 
