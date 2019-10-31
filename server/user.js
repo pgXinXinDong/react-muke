@@ -85,12 +85,11 @@ Router.post("/update",(req,res,next)=>{
 
     const userId = req.cookies.userId;
     const updata = req.body
-    User.findByIdAndUpdate(userId,updata,{ "pwd":0,"__id":0},(err,doc)=>{
-        console.log("doc",doc)
+    User.findByIdAndUpdate(userId,updata,{"fields":{"pwd":0,"__v":0,"_id":0},"new":true},(err,doc)=>{
         if(doc){
             return res.send({
                 code:0,
-
+                data:doc.data
             })
         }
     })

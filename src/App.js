@@ -12,6 +12,7 @@ import AuthRouter from "./component/authrouter/authrouter";
 import Login from "./container/login";
 import Register from "./container/register";
 import GeniusInfo from "./container/geniusinfo/geniusinfo";
+import BossInfo from "./container/bossinfo/bossinfo";
 
 
 var store = createStore(combineReducers(comReducer),applyMiddleware(thunk))
@@ -21,7 +22,7 @@ function Boss(){
 }
 //创建reducer
 store.subscribe(function () {
-   console.log(store.getState())
+   console.log("store",store.getState())
 })
 class App  extends React.Component{
   render(){
@@ -32,6 +33,7 @@ class App  extends React.Component{
                   <Switch>
                       <Route path="/boss" component={Boss}></Route>
                       <Route path="/geniusinfo" component={GeniusInfo}></Route>
+                      <Route path="/bossinfo" component={BossInfo}></Route>
                       <Route path="/login" component={Login}></Route>
                       <Route path="/register" component={Register}></Route>
                   </Switch>

@@ -26,7 +26,7 @@ export function user(state = initData, action){
             return {...initData,msg:"",...action.payload,redirectTo:getRedirectPath({...action.payload})}
         case ERROR_MSG :
                 return {...initData,msg:action.data}
-        case LOAD_DATA:return  { ...initData,...action.payload}
+        case LOAD_DATA:return  { ...initData,msg:"",...action.payload}
         case SWITCH_PAGE: return {...initData,msg:action.data}
         default:
             return initData
@@ -52,14 +52,18 @@ export  function switchToPage() {
 }
 
 export function update(data) {
-
         if(data.title == "" || data.avatar == "" || data.desc == "" || typeof data.avatar == "undefined") {
             return errorMsg("请完善信息")
         }
 
         return dispatch =>{
             axios.post("/user/update",data).then(res=>{
-
+                console.log("res",res)
+                if(res.status == 200 ){
+                    if(res.data.code == 0){
+                        dispatch(logoData(data))
+                    }
+                }
         })}
 
 }
