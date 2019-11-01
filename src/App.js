@@ -6,6 +6,7 @@ import comReducer from "./redux/index"
 import  { BrowserRouter ,Route,Switch} from "react-router-dom"
 import "./common.css"
 import AuthRouter from "./component/authrouter/authrouter";
+import { composeWithDevTools } from 'redux-devtools-extension'
 // import "./config"
 
 //页面
@@ -13,13 +14,11 @@ import Login from "./container/login";
 import Register from "./container/register";
 import GeniusInfo from "./container/geniusinfo/geniusinfo";
 import BossInfo from "./container/bossinfo/bossinfo";
+import DashBoard from "./component/dashboard/dashboard";
 
 
-var store = createStore(combineReducers(comReducer),applyMiddleware(thunk))
+var store = createStore(combineReducers(comReducer),applyMiddleware(thunk),composeWithDevTools())
 
-function Boss(){
-    return<h1>Boss</h1>
-}
 //创建reducer
 store.subscribe(function () {
    console.log("store",store.getState())
@@ -31,11 +30,11 @@ class App  extends React.Component{
               <AuthRouter></AuthRouter>
               <div>
                   <Switch>
-                      <Route path="/boss" component={Boss}></Route>
                       <Route path="/geniusinfo" component={GeniusInfo}></Route>
                       <Route path="/bossinfo" component={BossInfo}></Route>
                       <Route path="/login" component={Login}></Route>
                       <Route path="/register" component={Register}></Route>
+                      <DashBoard></DashBoard>
                   </Switch>
               </div>
           </BrowserRouter>

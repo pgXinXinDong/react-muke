@@ -2,12 +2,12 @@ import   React  from "react"
 import { withRouter }  from "react-router-dom"
 import { connect } from "react-redux"
 import axios from "axios"
-import { logoData } from "../../redux/user.rudex";
+import { loadData } from "../../redux/user.rudex";
 
 
 
 @withRouter
-@connect(null,{ logoData })
+@connect(null,{ loadData })
 class AuthRouter extends React.Component{
     componentDidMount(){
         let publicList = ["/login","/register"];
@@ -19,7 +19,7 @@ class AuthRouter extends React.Component{
             if(res.status == 200 ){
                 if(res.data.code == 0){
                     //已经登录
-                    this.props.logoData(res.data)
+                    this.props.loadData(res.data)
                 }else{
                     this.props.history.push("/login")
                 }

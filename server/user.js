@@ -40,7 +40,7 @@ Router.post("/login",(req,res,next)=>{
                 msg:"用户不存在"
             })
         }else {
-            res.cookie("userId",doc._id,cookieConfig);
+          res.cookie("userId",doc._id,cookieConfig);
           return  res.send({
                 code:0,
                 data:doc
@@ -83,23 +83,27 @@ Router.post("/register",(req,res,next)=>{
 })
 Router.post("/update",(req,res,next)=>{
     const userId = req.cookies.userId;
-    const updata = req.body
-    User.findByIdAndUpdate(userId,updata,{"fields":{"pwd":0,"__v":0,"_id":0},"new":true},(err,doc)=>{
+    if(!userId){
+        return res.send({
+            code:1,
+            msg:"回话结束重新登录"
+        })
+    }
+    const body = req.body
+
+    User.findByIdAndUpdate(userId,body,{"fields":{"pwd":0,"__v":0,"_id":0}},(err,doc)=>{
         console.log("err",err)
         console.log("doc",doc)
-        User.find({},function(err,doc){
-            console.log("findone",doc)
-        })
         if(doc){
             return res.send({
                 code:0,
-                data:doc.data
+                data:doc
             })
         }
     })
 })
 function md5Pwd(pwd){
-//    加严
+    //加严
     var salt ='imooc_is_good_3957x8yza6!@#IUHJh~~'
     return utils.md5(utils.md5(salt+pwd))
 }

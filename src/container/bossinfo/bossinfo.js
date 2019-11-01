@@ -21,7 +21,10 @@ class BossInfo extends Component{
                     this.setState({
                         avatar:el
                     })
-                }}></AvatarSelector>
+                }}>
+
+                </AvatarSelector>
+               {this.props.msg?<p className="error-msg">{this.props.msg}</p>:null}
                <List>
                     <InputItem onChange={(v)=>{this.onChange("title",v)}}>
                      招聘信息

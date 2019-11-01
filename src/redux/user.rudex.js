@@ -26,7 +26,7 @@ export function user(state = initData, action){
             return {...initData,msg:"",...action.payload,redirectTo:getRedirectPath({...action.payload})}
         case ERROR_MSG :
                 return {...initData,msg:action.data}
-        case LOAD_DATA:return  { ...initData,msg:"",...action.payload}
+        case LOAD_DATA:return  { ...initData,msg:"",...action.payload,redirectTo:getRedirectPath({...action.payload})}
         case SWITCH_PAGE: return {...initData,msg:action.data}
         default:
             return initData
@@ -34,8 +34,9 @@ export function user(state = initData, action){
 }
 
 
-export function logoData(data) {
-    return { type:LOAD_DATA, payload:data}
+export function loadData(data) {
+
+    return { type:LOAD_DATA, payload:data.data}
 }
 
 function errorMsg(data){
@@ -58,10 +59,11 @@ export function update(data) {
 
         return dispatch =>{
             axios.post("/user/update",data).then(res=>{
-                console.log("res",res)
                 if(res.status == 200 ){
                     if(res.data.code == 0){
-                        dispatch(logoData(data))
+                        dispatch(loadData(res.data.data))
+                    }else{
+                        dispatch(errorMsg(res.data.msg))
                     }
                 }
         })}

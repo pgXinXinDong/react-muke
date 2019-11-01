@@ -19,7 +19,6 @@ class Login extends React.Component{
     }
 
     handelLogin = ()=>{
-        console.log(this.props)
         this.props.login(this.state)
     }
     handelChange = (key,v)=>{
