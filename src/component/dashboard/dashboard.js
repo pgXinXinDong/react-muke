@@ -1,55 +1,73 @@
 import React, { Component } from "react"
 import { NavBar,TabBar,Card } from "antd-mobile"
 import { connect } from "react-redux"
-import { withRouter } from "react-router-dom"
+import { withRouter ,Switch ,Route} from "react-router-dom"
+import LinkBarNav from "../navlink/navlink"
+
+function Boss() {
+    return<div>Boss</div>
+}
+
+function Genius() {
+    return<h1>Genius</h1>
+}
+
+function Info() {
+    return<h1>Info</h1>
+}
+
+function Msg() {
+    return<h1>Msg</h1>
+}
+
+
 @withRouter
 @connect(state=>state.user,null)
 class DashBoard extends Component{
     render(){
-        console.log(11,this.props)
-        var pathname = this.props.location.pathname
-        var Item = TabBar.Item
-        var navLink = [
+        let pathname = this.props.location.pathname
+        let User = this.props.type;
+
+        let navLink = [
             {
                 title:"牛人列表",
                 icon:"boss",
-                path:"/Boss",
-                hide:pathname == "/genius"
+                path:"/boss",
+                hide:User == "genius",
+                component:Genius
             },
             {
                 title:"BOSS列表",
                 icon:"job",
                 path:"/genius",
-                hide:pathname =="/Boss"
+                hide:User =="Boss",
+                component:Boss
             },
             {
                 title:"消息",
                 icon:"msg",
-                path:"/msg"
-
+                path:"/msg",
+                component:Msg
             },
             {
                 title:"个人中心",
                 icon:"user",
-                path:"/me"
+                path:"/me",
+                component:Info
             }
         ]
-        navLink = navLink.filter((v)=>!v.hide)
-        return<div>
-            <NavBar mode="dark" className="fixd-header">{this.props.type == "Boss"?"genius":"Boss"}</NavBar>
-            <TabBar>
-                {navLink.map((v)=>{
-                    return<Item
-                        key={v.title}
-                        title={v.title}
-                        icon={{uri:require(`../img/navLink/img/${v.icon}.png`)}}
-                        selectedIcon={{uri:require(`../img/navLink/img/${v.icon}-active.png`)}}
-                        selected = {v.path === pathname}
-                        onPress = {()=>this.props.history.push(v.path)}
-                    >
-                    </Item>
-                })}
-            </TabBar>
+        return<div className="footer-header-bar">
+            <NavBar mode="dark" className="fixd-header">{navLink.find((v)=>v.path == pathname).title}</NavBar>
+            <div style={{marginTop:45}}>
+                  <Switch>
+                      {
+                          navLink.map(function (v) {
+                              return<Route key={v.path} path={v.path} component={v.component} ></Route>
+                          })
+                      }
+                  </Switch>
+            </div>
+            <LinkBarNav data = { navLink }></LinkBarNav>
         </div>
     }
 }

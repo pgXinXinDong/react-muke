@@ -15,3 +15,8 @@
 .fixd-footer{
     background-color: red;
 }
+.footer-header-bar .am-tab-bar{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
