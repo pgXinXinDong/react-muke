@@ -34,7 +34,7 @@ class App  extends React.Component{
                       <Route path="/bossinfo" component={BossInfo}></Route>
                       <Route path="/login" component={Login}></Route>
                       <Route path="/register" component={Register}></Route>
-                      <DashBoard></DashBoard>
+                      <Route component={DashBoard}></Route>
                   </Switch>
               </div>
           </BrowserRouter>

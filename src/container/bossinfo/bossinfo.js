@@ -1,15 +1,13 @@
 import React , { Component } from "react"
 import { List ,InputItem,TextareaItem,Button,WhiteSpace} from "antd-mobile"
 import { connect } from "react-redux"
+import { Redirect } from "react-router-dom"
 import { update } from "../../redux/user.rudex"
 import   AvatarSelector   from "../../component/avatar-selector/avatar-selector"
 
 
 @connect(state=>state.user,{update})
 class BossInfo extends Component{
-        state={
-
-        }
         onChange(key,v){
             this.setState({
                 [key]:v
@@ -17,6 +15,7 @@ class BossInfo extends Component{
         }
         render(){
            return<div>
+               {this.props.redirectTo? <Redirect to={this.props.redirectTo}></Redirect>:null}
                 <AvatarSelector selectAvatar={(el)=>{
                     this.setState({
                         avatar:el

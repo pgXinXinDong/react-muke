@@ -25,9 +25,11 @@ function Msg() {
 @connect(state=>state.user,null)
 class DashBoard extends Component{
     render(){
-        let pathname = this.props.location.pathname
+        let pathname = this.props.location.pathname.toLowerCase()
         let User = this.props.type;
-
+        if(pathname =="/"){
+           return this.props.history.push("/login")
+        }
         let navLink = [
             {
                 title:"牛人列表",

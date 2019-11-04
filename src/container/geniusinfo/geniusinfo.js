@@ -2,6 +2,7 @@ import React ,{ Component } from "react"
 import AvatarSelector from '../../component/avatar-selector/avatar-selector'
 import { NavBar,InputItem,TextareaItem ,List, Button} from "antd-mobile"
 import { connect } from "react-redux"
+import { Redirect } from "react-router-dom"
 import { update } from "../../redux/user.rudex"
 @connect( state=>state.user,{update} )
 class GeniusInfo extends Component{
@@ -16,8 +17,8 @@ class GeniusInfo extends Component{
         })
     }
     render(){
-        console.log("props",this.props)
         return<div>
+            {this.props.redirectTo? <Redirect to={this.props.redirectTo}></Redirect>:null}
             <NavBar mode="dark">牛人完善信息页</NavBar>
             <AvatarSelector selectAvatar={(e) => {
                 this.setState({

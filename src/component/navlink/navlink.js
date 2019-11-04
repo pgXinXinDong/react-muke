@@ -17,6 +17,7 @@ class LinkBarNav extends React.Component{
         let NavList =  this.props.data
         let pathName = this.props.history.pathname
 
+
         return<TabBar>
             {NavList.filter((v)=>!v.hide).map((v)=>{
                 console.log(1,v)
