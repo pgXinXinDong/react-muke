@@ -4,6 +4,7 @@ import { NavBar,InputItem,TextareaItem ,List, Button} from "antd-mobile"
 import { connect } from "react-redux"
 import { Redirect } from "react-router-dom"
 import { update } from "../../redux/user.rudex"
+
 @connect( state=>state.user,{update} )
 class GeniusInfo extends Component{
     state={

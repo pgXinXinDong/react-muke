@@ -1,7 +1,7 @@
 import  React from "react"
 import Logo from "../../component/logo/logo"
 import {Button ,WhiteSpace, WingBlank, List, InputItem} from "antd-mobile"
-import {Redirect} from "react-router-dom"
+import { Redirect } from "react-router-dom"
 import { login ,switchToPage} from "../../redux/user.rudex"
 import { connect } from "react-redux"
 
@@ -28,9 +28,9 @@ class Login extends React.Component{
     }
 
     render() {
-        return <div>
-            <Logo/>
+        return<div>
             {this.props.redirectTo ? <Redirect to={this.props.redirectTo}></Redirect> : null}
+            <Logo/>
             <WingBlank>
             <List>
                 {this.props.msg?<p className="error-msg">{this.props.msg}</p>:null}

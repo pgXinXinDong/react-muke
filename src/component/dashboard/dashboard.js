@@ -3,14 +3,9 @@ import { NavBar,TabBar,Card } from "antd-mobile"
 import { connect } from "react-redux"
 import { withRouter ,Switch ,Route} from "react-router-dom"
 import LinkBarNav from "../navlink/navlink"
+import Boss from "../boss/boss"
+import Genius from "../genius/genius"
 
-function Boss() {
-    return<div>Boss</div>
-}
-
-function Genius() {
-    return<h1>Genius</h1>
-}
 
 function Info() {
     return<h1>Info</h1>

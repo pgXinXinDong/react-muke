@@ -4,7 +4,7 @@ const utils = require('utility')
 const model = require('./model')
 const User = model.getModel("user")
 const _filter ={ "pwd":0,"__id":0}
-const cookieConfig = { expires: new Date(Date.now() + 9000000), httpOnly: true }
+const cookieConfig = { expires: new Date(Date.now() + 9000000) ,HttpOnly:true  }
 Router.get("/info",function (req,res) {
     const { userId } = req.cookies;
     console.log("userId",userId)

@@ -20,7 +20,6 @@ class LinkBarNav extends React.Component{
 
         return<TabBar>
             {NavList.filter((v)=>!v.hide).map((v)=>{
-                console.log(1,v)
                 return<Item
                     key={v.title}
                     title={v.title}

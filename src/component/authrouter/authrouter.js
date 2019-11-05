@@ -12,7 +12,9 @@ class AuthRouter extends React.Component{
     componentDidMount(){
         let publicList = ["/login","/register"];
         let pathName = this.props.location.pathname
+
         if(publicList.indexOf(pathName) > -1){
+            console.log("authRouter")
             return null
         }
         axios.get("/user/info").then(res=>{
@@ -21,6 +23,7 @@ class AuthRouter extends React.Component{
                     //已经登录
                     this.props.loadData(res.data)
                 }else{
+                    console.log("authRouter22")
                     this.props.history.push("/login")
                 }
             }

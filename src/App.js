@@ -3,7 +3,7 @@ import { createStore , applyMiddleware,combineReducers } from "redux";
 import { Provider } from "react-redux"
 import  thunk  from "redux-thunk"
 import comReducer from "./redux/index"
-import  { BrowserRouter ,Route,Switch} from "react-router-dom"
+import  { BrowserRouter , Route , Switch } from "react-router-dom"
 import "./common.css"
 import AuthRouter from "./component/authrouter/authrouter";
 import { composeWithDevTools } from 'redux-devtools-extension'
@@ -23,6 +23,12 @@ var store = createStore(combineReducers(comReducer),applyMiddleware(thunk),compo
 store.subscribe(function () {
    console.log("store",store.getState())
 })
+function LoginTest(){
+    return<div>
+        <h1>Login</h1>
+    </div>
+
+}
 class App  extends React.Component{
   render(){
     return(<Provider store={store}>
@@ -30,11 +36,11 @@ class App  extends React.Component{
               <AuthRouter></AuthRouter>
               <div>
                   <Switch>
-                      <Route path="/geniusinfo" component={GeniusInfo}></Route>
-                      <Route path="/bossinfo" component={BossInfo}></Route>
-                      <Route path="/login" component={Login}></Route>
-                      <Route path="/register" component={Register}></Route>
-                      <Route component={DashBoard}></Route>
+                      <Route path="/geniusinfo" component={GeniusInfo}/>
+                      <Route path="/bossinfo" component={BossInfo}/>
+                      <Route path="/login" component={Login}/>
+                      <Route path="/register" component={Register}/>
+                      <Route component={DashBoard}/>
                   </Switch>
               </div>
           </BrowserRouter>
