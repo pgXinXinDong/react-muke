@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { NavBar,TabBar,Card } from "antd-mobile"
 import { connect } from "react-redux"
-import { withRouter ,Switch ,Route} from "react-router-dom"
+import { withRouter ,Switch ,Route,Redirect} from "react-router-dom"
 import LinkBarNav from "../navlink/navlink"
 import Boss from "../boss/boss"
 import Genius from "../genius/genius"
@@ -27,19 +27,17 @@ class DashBoard extends Component{
            return this.props.history.push("/login")
         }
         let navLink = [
-
-            {
-                title:"Boss列表",
+            {   title:"牛人列表",
                 icon:"boss",
                 path:"/boss",
-                hide:User == "Boss",
+                hide:User == "genius",
                 component:Boss
             },
             {
-                title:"牛人列表",
+                title:"BOSS列表",
                 icon:"job",
                 path:"/genius",
-                hide:User =="genius",
+                hide:User =="Boss",
                 component:Genius
             },
             {
@@ -56,7 +54,8 @@ class DashBoard extends Component{
             }
         ]
         return<div className="footer-header-bar">
-            <NavBar mode="dark" className="fixd-header">{navLink.find((v)=>v.path != pathname).title}</NavBar>
+            {this.props.redirectTo ? <Redirect to={this.props.redirectTo}></Redirect> : null}
+            <NavBar mode="dark" className="fixd-header">{navLink.find((v)=>v.path == pathname).title}</NavBar>
             <div style={{marginTop:45}}>
                   <Switch>
                       {
