@@ -22,23 +22,25 @@ class DashBoard extends Component{
     render(){
         let pathname = this.props.location.pathname.toLowerCase()
         let User = this.props.type;
+        console.log("pathname",pathname)
         if(pathname =="/"){
            return this.props.history.push("/login")
         }
         let navLink = [
+
             {
-                title:"牛人列表",
+                title:"Boss列表",
                 icon:"boss",
                 path:"/boss",
-                hide:User == "genius",
-                component:Genius
+                hide:User == "Boss",
+                component:Boss
             },
             {
-                title:"BOSS列表",
+                title:"牛人列表",
                 icon:"job",
                 path:"/genius",
-                hide:User =="Boss",
-                component:Boss
+                hide:User =="genius",
+                component:Genius
             },
             {
                 title:"消息",
@@ -54,7 +56,7 @@ class DashBoard extends Component{
             }
         ]
         return<div className="footer-header-bar">
-            <NavBar mode="dark" className="fixd-header">{navLink.find((v)=>v.path == pathname).title}</NavBar>
+            <NavBar mode="dark" className="fixd-header">{navLink.find((v)=>v.path != pathname).title}</NavBar>
             <div style={{marginTop:45}}>
                   <Switch>
                       {

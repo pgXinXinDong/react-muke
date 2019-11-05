@@ -5,6 +5,7 @@ const LOGIN_SUCESS = 'LOGIN_SUCESS'
 const ERROR_MSG = 'ERROR_MSG'
 const LOAD_DATA = 'LOAD_DATA'
 const SWITCH_PAGE = "SWITCH_PAGE"
+const UPDATA_DATA = "UPDATA_DATA"
 
 
 const initData = {
@@ -21,14 +22,16 @@ const initData = {
 export function user(state = initData, action){
     switch (action.type){
         case LOGIN_SUCESS :
-            return {...initData,msg:"",...action.payload,redirectTo:getRedirectPath({...action.payload})}
+            return {...state,msg:"",...action.payload,redirectTo:getRedirectPath({...action.payload})}
         case REGISTER_SUCCESS:
-            return {...initData,msg:"",...action.payload,redirectTo:getRedirectPath({...action.payload})}
+            return {...state,msg:"",...action.payload,redirectTo:getRedirectPath({...action.payload})}
         case ERROR_MSG :
-                return {...initData,msg:action.data}
+                return {...state,msg:action.data}
         case LOAD_DATA:
             return  {...state,msg:"",...action.payload,redirectTo:getRedirectPath({...action.payload})}
-        case SWITCH_PAGE: return {...initData,msg:action.data}
+        case  UPDATA_DATA:
+            return {...state,msg:"",...action.payload,redirectTo: getRedirectPath({...action.payload})}
+        case SWITCH_PAGE: return {...state,msg:action.data}
         default:
             return initData
     }
@@ -36,7 +39,7 @@ export function user(state = initData, action){
 
 
 export function loadData(data) {
-    return { type:LOAD_DATA, payload:data.data}
+    return { type:LOAD_DATA, payload:data}
 }
 
 function errorMsg(data){
@@ -52,6 +55,10 @@ export  function switchToPage() {
     return {type:SWITCH_PAGE,data:""}
 }
 
+export function updataSuccess(data){
+    return{type:UPDATA_DATA,payload:data}
+}
+
 export function update(data) {
         if(data.title == "" || data.avatar == ""|| typeof data.avatar == "undefined") {
             return errorMsg("请完善信息")
@@ -61,7 +68,7 @@ export function update(data) {
             axios.post("/user/update",data).then(res=>{
                 if(res.status == 200 ){
                     if(res.data.code == 0){
-                        dispatch(loadData(data))
+                        dispatch(updataSuccess(data))
                     }else{
                         dispatch(errorMsg(res.data.msg))
                     }

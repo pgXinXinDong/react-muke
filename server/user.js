@@ -7,7 +7,6 @@ const _filter ={ "pwd":0,"__id":0}
 const cookieConfig = { expires: new Date(Date.now() + 9000000) ,HttpOnly:true  }
 Router.get("/info",function (req,res) {
     const { userId } = req.cookies;
-    console.log("userId",userId)
     if(!userId){
        return res.send({
             code:1,

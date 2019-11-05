@@ -3,7 +3,7 @@ import { Card } from "antd-mobile"
 class Usercarder extends React.Component{
      constructor(props){
          super(props);
-         console.log("props",this.props)
+         // console.log("props",this.props)
      }
 
     render(){
