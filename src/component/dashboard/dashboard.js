@@ -5,7 +5,7 @@ import { withRouter ,Switch ,Route,Redirect} from "react-router-dom"
 import LinkBarNav from "../navlink/navlink"
 import Boss from "../boss/boss"
 import Genius from "../genius/genius"
-import Info from "../user/user"
+import Info from "../user/user2"
 
 
 
