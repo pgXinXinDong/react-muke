@@ -91,8 +91,6 @@ Router.post("/update",(req,res,next)=>{
     const body = req.body
 
     User.findByIdAndUpdate(userId,body,{"fields":{"pwd":0,"__v":0,"_id":0}},(err,doc)=>{
-        console.log("err",err)
-        console.log("doc",doc)
         if(doc){
             return res.send({
                 code:0,
@@ -100,6 +98,25 @@ Router.post("/update",(req,res,next)=>{
             })
         }
     })
+})
+Router.post("/getUserList",(req,res)=>{
+    let userId = req.cookies.userId
+    console.log("userId",userId)
+    if(!userId){
+        return res.send({
+            code:1,
+            msg:"请重新登录"
+        })
+    }
+    let type = req.body.type
+    User.find({type:type},{"pwd":0,"__v":0},function (err,doc) {
+        return res.send({
+            code:0,
+            data:doc
+        })
+    })
+
+
 })
 function md5Pwd(pwd){
     //加严

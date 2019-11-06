@@ -7,12 +7,13 @@ const initData = {
 export function chatuser(stata = initData,data) {
         switch (data.type) {
             case USER_LIST:
-                return {...stata,userList:{...data.payload}}
+                return {...stata,userList:data.payload}
             default:
-                return initData
+                return stata
 
         }
 }
+
 
 export function userList(data){
     return{type:USER_LIST,payload:data}
@@ -20,8 +21,17 @@ export function userList(data){
 
 export  function getUserList(type){
    return dispatch =>{
-       axios.post("user/getUserList",{type:type}).then(res=>{
-            dispatch(userList(res.data))
+        axios.post("user/getUserList",{type:type}).then(res=>{
+            if(res.status == 200){
+                if(!res.data.code){
+                    return  dispatch(userList(res.data.data))
+                }else{
+
+
+                    return
+                }
+            }
+
        })
    }
 

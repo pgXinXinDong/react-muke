@@ -3,19 +3,17 @@ import Usercarder from "../usercarder/usercarder"
 import { connect } from "react-redux"
 import { getUserList } from "../../redux/chatuser.redux"
 
-@connect(state=>state.user,{getUserList})
+
+@connect(state=>state.chatuser,{getUserList})
 class Boss extends React.Component{
-    constructor(props){
-        super(props)
+    componentDidMount(){
+        this.props.getUserList("genius",)
+
     }
 
-    componentDidMount() {
-        console.log("this.props",this.props.state)
-        this.props.getUserList(this.props.type)
-    }
 
     render(){
-        return<Usercarder cardList = {this.props.user}/>
+        return<Usercarder userList = {this.props.userList}/>
     }
 }
 export default Boss

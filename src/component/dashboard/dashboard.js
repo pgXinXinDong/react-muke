@@ -5,11 +5,9 @@ import { withRouter ,Switch ,Route,Redirect} from "react-router-dom"
 import LinkBarNav from "../navlink/navlink"
 import Boss from "../boss/boss"
 import Genius from "../genius/genius"
+import Info from "../user/user"
 
 
-function Info() {
-    return<h1>Info</h1>
-}
 
 function Msg() {
     return<h1>Msg</h1>
@@ -22,7 +20,6 @@ class DashBoard extends Component{
     render(){
         let pathname = this.props.location.pathname.toLowerCase()
         let User = this.props.type;
-        console.log("pathname",pathname)
         if(pathname =="/"){
            return this.props.history.push("/login")
         }
@@ -49,7 +46,7 @@ class DashBoard extends Component{
             {
                 title:"个人中心",
                 icon:"user",
-                path:"/me",
+                path:"/info",
                 component:Info
             }
         ]

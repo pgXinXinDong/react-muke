@@ -33,7 +33,7 @@ export function user(state = initData, action){
             return {...state,msg:"",...action.payload,redirectTo: getRedirectPath({...action.payload})}
         case SWITCH_PAGE: return {...state,msg:action.data}
         default:
-            return initData
+            return state
     }
 }
 
