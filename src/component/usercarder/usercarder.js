@@ -11,7 +11,6 @@ class Usercarder extends React.Component{
     }
 
     render(){
-
         return<div>
             {
                 this.props.userList.map((v)=>{

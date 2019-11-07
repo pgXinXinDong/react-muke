@@ -17,6 +17,7 @@
 }
 .footer-header-bar .am-tab-bar{
     position: fixed;
+    height: auto;
     bottom: 0;
     width: 100%;
 }

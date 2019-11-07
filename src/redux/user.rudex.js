@@ -6,6 +6,7 @@ const ERROR_MSG = 'ERROR_MSG'
 const LOAD_DATA = 'LOAD_DATA'
 const SWITCH_PAGE = "SWITCH_PAGE"
 const UPDATA_DATA = "UPDATA_DATA"
+const LOGOOUT = "LOGOOUT"
 
 
 const initData = {
@@ -15,7 +16,8 @@ const initData = {
     repeatpwd:"",
     type:"",
     msg:"",
-    avatar:""
+    avatar:"",
+    pathName:""
 }
 
 
@@ -31,7 +33,10 @@ export function user(state = initData, action){
             return  {...state,msg:"",...action.payload,redirectTo:getRedirectPath({...action.payload})}
         case  UPDATA_DATA:
             return {...state,msg:"",...action.payload,redirectTo: getRedirectPath({...action.payload})}
-        case SWITCH_PAGE: return {...state,msg:action.data}
+        case SWITCH_PAGE:
+            return {...state,msg:action.data}
+        case LOGOOUT:
+            return {...initData,redirectTo:"/login"}
         default:
             return state
     }
@@ -116,4 +121,8 @@ export function register({user,pwd,repeatpwd,type}){
     }
 
 
+}
+
+export function logout() {
+        return {type:LOGOOUT}
 }

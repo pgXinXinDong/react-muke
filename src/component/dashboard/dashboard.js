@@ -5,7 +5,7 @@ import { withRouter ,Switch ,Route,Redirect} from "react-router-dom"
 import LinkBarNav from "../navlink/navlink"
 import Boss from "../boss/boss"
 import Genius from "../genius/genius"
-import Info from "../user/user2"
+import Info from "../info/info"
 
 
 
@@ -52,11 +52,12 @@ class DashBoard extends Component{
         ]
         return<div className="footer-header-bar">
             {this.props.redirectTo ? <Redirect to={this.props.redirectTo}></Redirect> : null}
+
             <NavBar mode="dark" className="fixd-header">{navLink.find((v)=>v.path == pathname).title}</NavBar>
             <div style={{marginTop:45}}>
                   <Switch>
                       {
-                          navLink.map(function (v) {
+                          navLink.map(v=>{
                               return<Route key={v.path} path={v.path} component={v.component} ></Route>
                           })
                       }

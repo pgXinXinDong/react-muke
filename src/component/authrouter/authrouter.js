@@ -20,7 +20,7 @@ class AuthRouter extends React.Component{
             if(res.status == 200 ){
                 if(res.data.code == 0){
                     //已经登录
-                    this.props.loadData(res.data.data)
+                    this.props.loadData({...res.data.data,pathName})
                 }else{
                     this.props.history.push("/login")
                 }
