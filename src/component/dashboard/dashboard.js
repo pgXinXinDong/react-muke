@@ -6,12 +6,10 @@ import LinkBarNav from "../navlink/navlink"
 import Boss from "../boss/boss"
 import Genius from "../genius/genius"
 import Info from "../info/info"
+import Msg  from  "../msg/msg"
 
 
 
-function Msg() {
-    return<h1>Msg</h1>
-}
 
 
 @withRouter

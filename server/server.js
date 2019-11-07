@@ -1,8 +1,18 @@
 const express = require("express")
 const bodyParser   = require("body-parser")
 const cookieParser = require("cookie-parser")
-const app  = express();
 const userInfo = require("./user")
+
+const app  = express();
+const http = require("http").Server(app)
+const io = require("socket.io")(http)
+
+io.on('connection', function(socket){
+    console.log('a user connected');
+});
+
+
+
 app.use(bodyParser.urlencoded({extended: true}) )
 app.use(bodyParser.json());
 app.use(cookieParser())
