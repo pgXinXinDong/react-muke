@@ -4,8 +4,9 @@ import { connect } from "react-redux"
 import { getUserList } from "../../redux/chatuser.redux"
 
 
-@connect(state=>state.chatuser,{getUserList})
+@connect(state=>state.chatuser,{ getUserList })
 class Boss extends React.Component{
+
     componentDidMount(){
         this.props.getUserList("genius",)
 

@@ -1,6 +1,6 @@
  import React from "react"
  import { connect }  from "react-redux"
- import { sendMsg } from "../../redux/chatuser.redux"
+ import { sendMsg } from "../../redux/chat.reudex"
 
  @connect(state=>state.chatuser,{sendMsg})
  class Msg extends React.Component{
@@ -8,8 +8,6 @@
         this.props.sendMsg()
     }
     render(){
-
-            console.log("this.props",this.props.sendMsg)
             return<div>
                 <h1>22222</h1>
             </div>

@@ -21,3 +21,9 @@
     bottom: 0;
     width: 100%;
 }
+.stick-footer{
+    z-index:1;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}

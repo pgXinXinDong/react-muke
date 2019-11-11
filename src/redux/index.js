@@ -1,5 +1,6 @@
 import {user} from "./user.rudex"
 import { chatuser } from "./chatuser.redux"
-const comReducer = {chatuser,user}
+import { chat } from "./chat.reudex"
+const comReducer = {chatuser,user,chat}
 
 export default comReducer

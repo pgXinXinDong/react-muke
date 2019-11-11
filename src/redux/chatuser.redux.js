@@ -1,6 +1,4 @@
 import axios from "axios"
-const io = require("socket.io-client")
-const socket = io('ws://localhost:9093')
 const USER_LIST = "USER_LIST"
 const CLEARUSERLIST ="CLEARUSERLIST"
 const initData = {
@@ -40,11 +38,4 @@ export  function getUserList(type){
 
        })
    }
-}
-
-export function sendMsg(msg) {
-    return dispatch =>{
-        socket.emit('sendmsg',{msg})
-    }
-
 }

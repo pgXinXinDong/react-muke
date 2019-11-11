@@ -17,7 +17,10 @@ const models = {
 
     },
     chat:{
-
+        chatId:{type:String,require:true},
+        from:{type:String,require:true},
+        to:{type:String,require:true},
+        content:{type:String,require:true,default:""}
     },
     speak:{}
 }
