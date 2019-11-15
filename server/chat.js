@@ -7,10 +7,21 @@ const user = model.getModel("user")
 var Router = express.Router();
 
 
-Router.post("/getChatList",function (req,res) {
+Router.get("/getChatList",function (req,res) {
     const userId = req.cookies.userId;
-    console.log("req",req.cookies);
-    console.log("userId",userId);
+    user.find({},function (err,doc) {
+
+        let users = []
+        doc.forEach(v=>{
+            users[v._id]={title:v.title,avatar:v.avatar}
+        })
+        console.log("doc",users)
+
+        return{
+            code:0,
+            data:users
+        }
+    })
 
 })
 

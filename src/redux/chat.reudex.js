@@ -2,16 +2,20 @@ import io from "socket.io-client"
 import axios from "axios"
 const socket = io("ws://localhost:9093")
 const MSG_RECV ="MSG_RECV"
+const MSG_USERS="MSG_USERS"
 
 const initDat = {
-    chatmsg:[]
+    chatmsg:[],
+    users:[]
 
 }
 
 export function chat(state=initDat,action) {
     switch (action.type){
-        case "MSG_RECV":
+        case MSG_RECV:
             return { ...state,chatmsg:[...state.chatmsg,action.payload] }
+        case MSG_USERS:
+            return {...state,users:[...action.payload.users]}
         default:
             return state
     }
@@ -39,9 +43,8 @@ export function recvMsg(){
 
 
 export function sendMsg({from ,to ,msg}) {
+
     return dispatch =>{
         socket.emit('sendmsg',{from ,to ,msg})
     }
-
-
 }
