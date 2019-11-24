@@ -7,26 +7,23 @@ import { sendMsg,recvMsg ,getChatList} from "../../redux/chat.reudex"
 class Chat extends React.Component{
     state={
         text:"",
-        toUser:{}
+        // toUser:{}
     }
     componentDidMount(){
         let userId = this.props.match.params.user
         let userList = this.props.chatuser.userList;
         let toUser = userList.filter(item=>{
-            console.log("toUser",userId)
             return item[userId] = userId
         })
         this.setState({
             toUser:toUser
         })
-        this.props.getChatList()
+        this.props.getChatList(userId)
         this.props.recvMsg()
     }
 
     handelSubmit(){
-
         const from = this.props.user._id;
-        console.log("from",from)
         const to = this.props.match.params.user;
         const msg = this.state.text;
         this.props.sendMsg({from,to,msg});
@@ -34,8 +31,7 @@ class Chat extends React.Component{
     }
 
     render(){
-        let toUser = this.state.toUser;
-        console.log(toUser)
+        let toUser = this.props.chat.users;
         const chatmsg = this.props.chat.chatmsg;
         const Item = List.Item
         return<div>
@@ -44,7 +40,7 @@ class Chat extends React.Component{
                 icon = {<Icon type="left"/>}
                 onLeftClick = {()=>this.props.history.goBack()}
             >
-                { toUser.title?toUser.titile:null}
+                { toUser?toUser.user:null}
             </NavBar>
             <List>
                 {chatmsg.map(v=>{

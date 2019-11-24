@@ -2,11 +2,11 @@ import io from "socket.io-client"
 import axios from "axios"
 const socket = io("ws://localhost:9093")
 const MSG_RECV ="MSG_RECV"
-const MSG_USERS="MSG_USERS"
+const MSG_CHATUSERSLIST="MSG_CHATUSERSLIST"
 
 const initDat = {
     chatmsg:[],
-    users:[]
+    users:{}
 
 }
 
@@ -14,8 +14,8 @@ export function chat(state=initDat,action) {
     switch (action.type){
         case MSG_RECV:
             return { ...state,chatmsg:[...state.chatmsg,action.payload] }
-        case MSG_USERS:
-            return {...state,users:[...action.payload.users]}
+        case MSG_CHATUSERSLIST:
+            return {...state,users:action.payload}
         default:
             return state
     }
@@ -24,10 +24,15 @@ export function chat(state=initDat,action) {
 function msgRecv(data) {
     return {type:MSG_RECV,payload:data}
 }
-export  function getChatList() {
-  return dispatch => axios.get("/chat/getChatList")
+
+function msgCharUserList(data){
+    return{type:MSG_CHATUSERSLIST,payload:data}
+}
+export  function getChatList(userId) {
+  return dispatch => axios.post("/chat/getChatList",{userId:userId})
         .then(res=>{
-            console.log("getChatList",res)
+            console.log("res",res)
+            dispatch(msgCharUserList(res.data.data))
         })
 }
 
@@ -35,7 +40,6 @@ export function recvMsg(){
    return (dispatch,getState) =>{
        console.log("getState",getState())
         socket.on("recvMsg",function(data){
-            console.log("data",data)
             dispatch(msgRecv(data))
         })
     }
