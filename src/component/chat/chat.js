@@ -1,24 +1,18 @@
 import React from "react"
 import {List,InputItem ,NavBar,Icon} from "antd-mobile"
 import { connect } from "react-redux"
-import { sendMsg,recvMsg ,getChatList} from "../../redux/chat.reudex"
+import { getChatId } from "../../util"
+import { sendMsg,recvMsg ,getChatUser,getChatMsgList} from "../../redux/chat.reudex"
 
-@connect(state=>state,{sendMsg,recvMsg,getChatList})
+@connect(state=>state,{sendMsg,recvMsg,getChatUser,getChatMsgList})
 class Chat extends React.Component{
     state={
         text:"",
-        // toUser:{}
     }
     componentDidMount(){
         let userId = this.props.match.params.user
-        let userList = this.props.chatuser.userList;
-        let toUser = userList.filter(item=>{
-            return item[userId] = userId
-        })
-        this.setState({
-            toUser:toUser
-        })
-        this.props.getChatList(userId)
+        this.props.getChatMsgList()
+        this.props.getChatUser(userId)
         this.props.recvMsg()
     }
 
@@ -27,6 +21,9 @@ class Chat extends React.Component{
         const to = this.props.match.params.user;
         const msg = this.state.text;
         this.props.sendMsg({from,to,msg});
+        this.setState({
+            text:""
+        })
 
     }
 

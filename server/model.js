@@ -20,7 +20,9 @@ const models = {
         chatId:{type:String,require:true},
         from:{type:String,require:true},
         to:{type:String,require:true},
-        content:{type:String,require:true,default:""}
+        read:{type:Boolean,default:false},
+        content:{type:String,require:true,default:""},
+        create_time:{type:Number,default:Date.now()}
     },
     speak:{}
 }

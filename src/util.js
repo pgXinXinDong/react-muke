@@ -6,8 +6,11 @@ export function getRedirectPath({type,avatar,pathName}) {
         url += "info"
     }
 
-
-
-
     return url
+}
+
+export function getChatId(from,to) {
+    console.log("from",from)
+    console.log("to",to)
+    return [from,to].sort().join("_")
 }

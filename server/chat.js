@@ -1,14 +1,29 @@
 const express = require("express")
 const model = require("./model")
 const user = model.getModel("user")
-
+const chat = model.getModel("chat")
 
 
 var Router = express.Router();
 
+Router.get("/getChatMsgList",function (req,res) {
+    let userId = req.cookies.userId
 
-Router.post("/getChatList",function (req,res) {
-    console.log(2222,req.body)
+    chat.find({'$or':[{from:userId},{to:userId}]},function (err,doc) {
+        if(err) {
+            console.log(err)
+            return
+        }
+
+        return res.send({
+            code:0,
+            data:doc
+        })
+
+    })
+
+})
+Router.post("/getChatUser",function (req,res) {
     var chartUserId = req.body.userId
 
     let users = {};
