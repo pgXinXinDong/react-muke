@@ -101,7 +101,6 @@ Router.post("/update",(req,res,next)=>{
 })
 Router.post("/getUserList",(req,res)=>{
     let userId = req.cookies.userId
-
     if(!userId){
         return res.send({
             code:1,

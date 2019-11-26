@@ -47,6 +47,7 @@ export  function getChatUser(userId) {
 export function getChatMsgList() {
     return (dispatch,getState) => axios.get("/chat/getChatMsgList").then(res=>{
         if(res.status && res.status == 200){
+            console.log("res",res)
             var userid  = getState().user._id;
             if(res.data.data.ok && res.data.data.ok == 1){
                 return

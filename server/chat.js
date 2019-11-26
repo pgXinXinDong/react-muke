@@ -13,7 +13,7 @@ Router.get("/getChatMsgList",function (req,res) {
             console.log(err)
             return
         }
-        return res.status({
+        return res.send({
             code:0,
             data:doc
         })
