@@ -30,18 +30,22 @@ class Chat extends React.Component{
     render(){
         let toUser = this.props.chat.users;
         const chatmsg = this.props.chat.chatmsg;
+        const userId = this.props.user._id;
+        const userVatar = this.props.user.avatar
         const Item = List.Item
-        return<div>
+        return<div id='chat-page'>
             <NavBar
                 mode="dark"
                 icon = {<Icon type="left"/>}
                 onLeftClick = {()=>this.props.history.goBack()}
             >
-                { toUser?toUser.user:null}
+                { toUser?toUser.user:null }
             </NavBar>
             <List>
                 {chatmsg.map(v=>{
-                   return <Item key = {v._id}>{v.content}</Item>
+                    return v.from == userId?
+                        <Item thumb={userVatar?require(`../img/${userVatar}.png`):null}  className="chat-me"  key = {v._id}>{v.content}</Item>:
+                        <Item thumb={toUser.avatar?require(`../img/${toUser.avatar}.png`):null} key = {v._id}>{v.content}</Item>
                 })}
 
             </List>

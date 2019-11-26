@@ -29,6 +29,9 @@ export  function getUserList(type){
         axios.post("user/getUserList",{type:type}).then(res=>{
             if(res.status == 200){
                 if(!res.data.code){
+                    if(res.data.data.ok && res.data.data.ok == 1){
+                        return
+                    }
                     return  dispatch(userList(res.data.data))
                 }else{
 

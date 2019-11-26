@@ -13,11 +13,12 @@ const initDat = {
 }
 
 export function chat(state=initDat,action) {
+
     switch (action.type){
         case MSG_RECV:
             return { ...state,chatmsg:[...state.chatmsg,action.payload],userid:action.userId }
         case MSG_GETCHAHMSGLIST:
-            return {...state,chatmsg:[...state.chatmsg,action.payload],userid:action.userId}
+            return {...state,chatmsg:[...state.chatmsg,...action.payload],userid:action.userId}
         case  MSG_GETCHATUSER:
             return {...state,users:action.payload}
         default:
@@ -47,7 +48,9 @@ export function getChatMsgList() {
     return (dispatch,getState) => axios.get("/chat/getChatMsgList").then(res=>{
         if(res.status && res.status == 200){
             var userid  = getState().user._id;
-            console.log("userId",userid)
+            if(res.data.data.ok && res.data.data.ok == 1){
+                return
+            }
             dispatch(msgGetChatMsgList(res.data.data,userid))
         }
 

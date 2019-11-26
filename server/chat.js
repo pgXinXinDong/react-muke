@@ -8,18 +8,15 @@ var Router = express.Router();
 
 Router.get("/getChatMsgList",function (req,res) {
     let userId = req.cookies.userId
-
     chat.find({'$or':[{from:userId},{to:userId}]},function (err,doc) {
         if(err) {
             console.log(err)
             return
         }
-
-        return res.send({
+        return res.status({
             code:0,
             data:doc
         })
-
     })
 
 })
