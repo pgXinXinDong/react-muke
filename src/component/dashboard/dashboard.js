@@ -7,17 +7,22 @@ import Boss from "../boss/boss"
 import Genius from "../genius/genius"
 import Info from "../info/info"
 import Msg  from  "../msg/msg"
+import { getChatMsgList, recvMsg} from "../../redux/chat.reudex"
 
 
 
 
 
 @withRouter
-@connect(state=>state.user,null)
+@connect(state=>state,{getChatMsgList,recvMsg})
 class DashBoard extends Component{
+    componentDidMount(){
+        this.props.getChatMsgList()
+        this.props.recvMsg()
+    }
     render(){
         let pathname = this.props.location.pathname.toLowerCase()
-        let User = this.props.type;
+        let User = this.props.user.type;
         if(pathname =="/"){
            return this.props.history.push("/login")
         }
@@ -49,7 +54,7 @@ class DashBoard extends Component{
             }
         ]
         return<div className="footer-header-bar">
-            {this.props.redirectTo ? <Redirect to={this.props.redirectTo}></Redirect> : null}
+            {this.props.redirectTo ? <Redirect to={this.props.user.redirectTo}></Redirect> : null}
 
             <NavBar mode="dark" className="fixd-header">{navLink.find((v)=>v.path == pathname).title}</NavBar>
             <div style={{marginTop:45}}>

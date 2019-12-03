@@ -1,13 +1,18 @@
 import React from "react"
-import {List,InputItem ,NavBar,Icon} from "antd-mobile"
+import {List,InputItem ,NavBar,Icon,ListView } from "antd-mobile"
 import { connect } from "react-redux"
-import { getChatId } from "../../util"
-import { sendMsg,recvMsg ,getChatUser,getChatMsgList} from "../../redux/chat.reudex"
+import  QueueAnim from "rc-queue-anim"
 
-@connect(state=>state,{sendMsg,recvMsg,getChatUser,getChatMsgList})
+import { sendMsg,recvMsg ,getChatUser,getChatMsgList,readMsg} from "../../redux/chat.reudex"
+
+@connect(state=>state,{sendMsg,recvMsg,getChatUser,getChatMsgList,readMsg})
 class Chat extends React.Component{
     state={
         text:"",
+    }
+    componentWillMount(){
+        const to = this.props.match.params.user
+        this.props.readMsg(to)
     }
     componentDidMount(){
         let userId = this.props.match.params.user
@@ -41,14 +46,17 @@ class Chat extends React.Component{
             >
                 { toUser?toUser.user:null }
             </NavBar>
-            <List>
-                {chatmsg.map(v=>{
-                    return v.from == userId?
-                        <Item thumb={userVatar?require(`../img/${userVatar}.png`):null}  className="chat-me"  key = {v._id}>{v.content}</Item>:
-                        <Item thumb={toUser.avatar?require(`../img/${toUser.avatar}.png`):null} key = {v._id}>{v.content}</Item>
-                })}
+            {/*<ListView>*/}
+                <QueueAnim delay={50}>
+                            {chatmsg.map(v=>{
+                                return v.from == userId?
+                                    <List key={v._id}> <Item thumb={userVatar?require(`../img/${userVatar}.png`):null}  className="chat-me"  key = {v._id}>{v.content}</Item> </List>:
+                                    <List><Item thumb={toUser.avatar?require(`../img/${toUser.avatar}.png`):null} key = {v._id}>{v.content}</Item> </List>
+                            })}
 
-            </List>
+
+                </QueueAnim>
+            {/*</ListView>*/}
             <List className="stick-footer">
                 <InputItem
                  placeholder="请输入"

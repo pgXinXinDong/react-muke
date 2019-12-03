@@ -16,6 +16,7 @@ import GeniusInfo from "./container/geniusinfo/geniusinfo";
 import BossInfo from "./container/bossinfo/bossinfo";
 import DashBoard from "./component/dashboard/dashboard";
 import Chat from "./component/chat/chat"
+import Listview  from "./container/listview/listview"
 
 
 var store = createStore(combineReducers(comReducer),applyMiddleware(thunk),composeWithDevTools())
@@ -42,6 +43,7 @@ class App  extends React.Component{
                       <Route path="/login" component={Login}/>
                       <Route path="/register" component={Register}/>
                       <Route path="/chat/:user" component={Chat}/>
+                      <Route path="/listviwe" component={Listview}/>
                       <Route component={DashBoard}/>
                   </Switch>
               </div>
